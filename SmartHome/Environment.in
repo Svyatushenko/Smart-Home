@@ -1,0 +1,10 @@
+6 3 8 2
+id 1 : sensorType 1 : location 1
+id 2 : sensorType 1 : location 2
+id 3 : sensorType 1 : location 3
+id 4 : sensorType 2 : location 1
+id 5 : sensorType 2 : location 2
+id 6 : sensorType 2 : location 3
+id 7 : deviceType 1 : location 1 : power 40
+id 8 : deviceType 1 : location 2 : power 20
+id 9 : deviceType 1 : location 3 : power 40
