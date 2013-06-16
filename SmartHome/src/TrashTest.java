@@ -45,6 +45,12 @@ public class TrashTest implements Runnable {
 		State [] ololo = new State[2];
 		ololo[0] = test.states[0];
 		
+		ArrayList<Integer> test1 = BinaryMath.toBinary(8);
+		for (int i = 0; i < test1.size(); i++) {
+			out.print(test1.get(i) + " ");
+		}
+		out.println();
+		
 		Random r = new Random();
 		out.println(BinaryMath.times(n));
 		int [] a = new int [n];
