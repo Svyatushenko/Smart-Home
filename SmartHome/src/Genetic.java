@@ -188,7 +188,7 @@ public class Genetic {
 			}
 			int tmp = -1;
 			while (tmp == -1) {
-				int index = rand.nextInt();
+				int index = rand.nextInt(child.auto.m);
 				double p = rand.nextDouble();
 				if (p < probability[index]) tmp = index;
 			}
@@ -211,11 +211,47 @@ public class Genetic {
 		}
 	}
 
-	private Automaton[] mutation(Automaton[] newpopul) {
+	private void mutation(Automaton[] newpopul) {
 		for (int i = 0; i < psize; i++) {
-			// мутируем особь из newpopul, ставим им флаг wasUsed
+			if (!newpopul[i].wasUsed) {
+				for (int j = 0; j < newpopul[i].m; j ++) {
+					double probability = 1 - (newpopul[j].fitness / popul[0].fitness);
+					mutationStates(newpopul[i].states[j], probability);
+				}
+				newpopul[i].wasUsed = true;
+			}
 		}
-		return newpopul;
+	}
+	
+	private void mutationStates(State st, double probability) {
+		//мутиуем множство зачимых предикатов
+		double p = rand.nextDouble();
+		if (p < probability) {
+			int index1 = 0;
+			int index2 = 0;
+			do {
+				index1 = rand.nextInt(st.inPred.length);
+			} while (st.inPred[index1]);
+			do {
+				index2 = rand.nextInt(st.inPred.length);
+			} while (!st.inPred[index2]);
+			st.inPred[index1] = false;
+			st.inPred[index2] = true;
+		}
+		
+		//мутиуем саму таблицу:
+		for (int i = 0; i < st.auto.rows; i++) {
+			p = rand.nextDouble();
+			if (p < probability) {
+				st.nextState[i] = rand.nextInt(st.auto.m); //целевые сост-я
+			}
+			for (int j = 0; j < st.auto.k; j++) {
+				p = rand.nextDouble();
+				if (p < probability / 2) {
+					st.output[i][j] = rand.nextInt(2); //выходные воздействия
+				}
+			}
+		}
 	}
 
 }
